@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mocha - Study Tracker</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="app">
+    <!-- Page Container for switching views -->
+    <div class="page-container" id="page-container">
+      <!-- Home Page -->
+      <div class="page active" id="home-page">
+    <!-- ============================================
+         HEADER - Coins display only
+         ============================================ -->
+    <header class="header">
+      <div class="header-right">
+        <div class="points-display" id="points-display">
+          <img src="../assets/icons/Assessories/coin.png" class="points-icon" alt="Coins">
+          <span class="points-value" id="points-value">0</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- ============================================
+         MAIN CONTENT AREA - With Background Scene
+         ============================================ -->
+    <main class="main main-with-scene">
+      <!-- Background Scene -->
+      <div class="scene-background" id="scene-background" style="background-image: url('../assets/icons/Backdrops/doe.png');">
+      </div>
+
+      <!-- Bear Character Display -->
+      <div class="bear-character-display" id="bear-character-display">
+        <img src="../assets/icons/Bear/bear_smile_transparent.png" class="bear-img" id="bear-img" alt="Bear">
+      </div>
+
+      <!-- Start Session Button (Bottom) -->
+      <div class="start-session-container">
+        <button class="start-session-btn-small" id="start-session-btn-small">
+          Start Session
+        </button>
+      </div>
+
+      <!-- Active Session Bar (shown when timer is running) -->
+      <div class="session-bar" id="session-bar" style="display: none;">
+        <div class="session-bar-content">
+          <div class="session-bar-left">
+            <span class="session-bar-icon" id="session-bar-icon">📚</span>
+            <div class="session-bar-info">
+              <span class="session-bar-goal" id="session-bar-goal">Math 54</span>
+              <span class="session-bar-timer" id="session-bar-timer">00:00</span>
+            </div>
+          </div>
+          <div class="session-bar-actions">
+            <button class="session-bar-btn session-bar-pause" id="session-bar-pause-btn" title="Pause">
+              ⏸️
+            </button>
+            <button class="session-bar-btn session-bar-stop" id="session-bar-stop-btn" title="Stop">
+              ⏹️
+            </button>
+          </div>
+        </div>
+      </div>
+    </main>
+      </div>
+      <!-- End Home Page -->
+
+      <!-- Progress Page -->
+      <div class="page" id="progress-page">
+        <iframe src="../pages/progress.html" class="page-iframe"></iframe>
+      </div>
+
+      <!-- Shop Page -->
+      <div class="page" id="shop-page">
+        <iframe src="../pages/shop.html" class="page-iframe"></iframe>
+      </div>
+
+      <!-- Settings Page -->
+      <div class="page" id="settings-page">
+        <div class="main">
+          <div class="section-header">
+            <h2 class="section-title">Settings</h2>
+          </div>
+          <div class="empty-state">
+            <p class="empty-state-text">Settings coming soon!</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- End Page Container -->
+
+    <!-- ============================================
+         FOOTER - Navigation
+         ============================================ -->
+    <footer class="footer">
+      <nav class="nav">
+        <button class="nav-btn active" id="nav-home" title="Home">
+          <img src="../assets/icons/home.svg" class="nav-icon" alt="">
+          <span class="nav-label">Home</span>
+        </button>
+        <button class="nav-btn" id="nav-progress" title="Progress">
+          <img src="../assets/icons/progress.svg" class="nav-icon" alt="">
+          <span class="nav-label">Progress</span>
+        </button>
+        <button class="nav-btn" id="nav-shop" title="Shop">
+          <img src="../assets/icons/shop.svg" class="nav-icon" alt="">
+          <span class="nav-label">Shop</span>
+        </button>
+        <button class="nav-btn" id="nav-settings" title="Settings">
+          <img src="../assets/icons/settings.svg" class="nav-icon" alt="">
+          <span class="nav-label">Settings</span>
+        </button>
+      </nav>
+    </footer>
+
+    <!-- ============================================
+         MODALS
+         ============================================ -->
+
+    <!-- Add Goal Modal -->
+    <div class="modal-overlay" id="add-goal-modal" style="display: none;">
+      <div class="modal">
+        <div class="modal-header">
+          <h3 class="modal-title">Create New Goal</h3>
+          <button class="btn btn-icon modal-close" id="close-goal-modal">&times;</button>
+        </div>
+        <div class="modal-body">
+          <form id="goal-form">
+            <!-- Goal Name -->
+            <div class="form-group">
+              <label for="goal-name" class="form-label">Goal Name</label>
+              <input
+                type="text"
+                id="goal-name"
+                class="form-input"
+                placeholder="CS61B, Leetcode, etc."
+                maxlength="50"
+                required
+              >
+              <span class="form-error" id="goal-name-error"></span>
+            </div>
+
+            <!-- Category -->
+            <div class="form-group">
+              <label class="form-label">Category</label>
+              <div class="radio-group" id="category-group">
+                <label class="radio-option">
+                  <input type="radio" name="category" value="class" checked>
+                  <span class="radio-label">📚 Class</span>
+                </label>
+                <label class="radio-option">
+                  <input type="radio" name="category" value="coding">
+                  <span class="radio-label">💻 Coding</span>
+                </label>
+                <label class="radio-option">
+                  <input type="radio" name="category" value="work">
+                  <span class="radio-label">💼 Work</span>
+                </label>
+                <label class="radio-option">
+                  <input type="radio" name="category" value="personal">
+                  <span class="radio-label">🎯 Personal</span>
+                </label>
+                <label class="radio-option">
+                  <input type="radio" name="category" value="other">
+                  <span class="radio-label">📝 Other</span>
+                </label>
+              </div>
+            </div>
+
+            <!-- Icon Selection -->
+            <div class="form-group">
+              <label class="form-label">Icon</label>
+              <div class="icon-picker" id="icon-picker">
+                <!-- Icons populated by JS -->
+              </div>
+              <input type="hidden" id="goal-icon" value="📚">
+            </div>
+
+            <!-- Color Selection -->
+            <div class="form-group">
+              <label class="form-label">Color</label>
+              <div class="color-picker" id="color-picker">
+                <!-- Colors populated by JS -->
+              </div>
+              <input type="hidden" id="goal-color" value="#4A90A4">
+            </div>
+
+            <!-- Tracking Options Divider -->
+            <div class="form-divider">
+              <span>What to track?</span>
+            </div>
+
+            <!-- Track Hours -->
+            <div class="form-group">
+              <label class="checkbox-option">
+                <input type="checkbox" id="track-hours" checked>
+                <span class="checkbox-label">Track Hours</span>
+              </label>
+              <div class="conditional-input" id="hours-input-container">
+                <label for="weekly-hour-goal" class="form-label-small">Weekly goal:</label>
+                <div class="input-with-unit">
+                  <input
+                    type="number"
+                    id="weekly-hour-goal"
+                    class="form-input form-input-small"
+                    value="10"
+                    min="1"
+                    max="168"
+                  >
+                  <span class="input-unit">hours</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Track Tasks -->
+            <div class="form-group">
+              <label class="checkbox-option">
+                <input type="checkbox" id="track-tasks">
+                <span class="checkbox-label">Track Tasks</span>
+              </label>
+              <div class="conditional-input" id="tasks-input-container" style="display: none;">
+                <label for="weekly-task-goal" class="form-label-small">Weekly goal:</label>
+                <div class="input-with-unit">
+                  <input
+                    type="number"
+                    id="weekly-task-goal"
+                    class="form-input form-input-small"
+                    value="3"
+                    min="1"
+                    max="100"
+                  >
+                  <select id="task-unit" class="form-select">
+                    <option value="assignments">assignments</option>
+                    <option value="problems">problems</option>
+                    <option value="tasks">tasks</option>
+                    <option value="chapters">chapters</option>
+                    <option value="projects">projects</option>
+                    <option value="exercises">exercises</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <!-- Tip -->
+            <div class="form-tip">
+              <span class="tip-icon">💡</span>
+              <span class="tip-text">Tip: Most students track both! Hours show effort, tasks show results.</span>
+            </div>
+
+            <!-- Form Error -->
+            <span class="form-error" id="form-error"></span>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" id="cancel-goal-btn">Cancel</button>
+          <button type="submit" form="goal-form" class="btn btn-primary" id="create-goal-btn">Create Goal</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Start Session Modal -->
+    <div class="modal-overlay" id="start-session-modal" style="display: none;">
+      <div class="modal">
+        <div class="modal-header">
+          <h3 class="modal-title">Start Study Session</h3>
+          <button class="btn btn-icon modal-close" id="close-session-modal">&times;</button>
+        </div>
+        <div class="modal-body">
+          <!-- Goal Selection -->
+          <div class="form-group">
+            <label class="form-label">What are you working on?</label>
+            <div class="goal-select-list" id="goal-select-list">
+              <!-- Goals populated by JS -->
+            </div>
+            <span class="form-error" id="session-goal-error"></span>
+          </div>
+
+          <!-- Optional Task Selection (shown if goal has tasks) -->
+          <div class="form-group" id="task-select-group" style="display: none;">
+            <label class="form-label">Working on a specific task? (Optional)</label>
+            <select id="task-select" class="form-select">
+              <option value="">No specific task</option>
+              <!-- Tasks populated by JS -->
+            </select>
+          </div>
+
+          <!-- Session Mode -->
+          <div class="form-group">
+            <label class="form-label">Session Mode</label>
+            <div class="radio-group">
+              <label class="radio-option">
+                <input type="radio" name="session-mode" value="free" checked>
+                <span class="radio-label">🕐 Free Timer</span>
+              </label>
+              <label class="radio-option">
+                <input type="radio" name="session-mode" value="pomodoro">
+                <span class="radio-label">🍅 Pomodoro (25/5)</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Points Preview -->
+          <div class="points-preview" id="points-preview">
+            <span class="preview-label">You'll earn approximately:</span>
+            <span class="preview-value" id="preview-points">~10 pts/hour</span>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" id="cancel-session-btn">Cancel</button>
+          <button type="button" class="btn btn-primary btn-large" id="begin-session-btn">
+            <span>▶️</span> Begin Session
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Goal Menu Dropdown (for Edit/Archive/Delete) -->
+    <div class="dropdown-menu" id="goal-menu" style="display: none;">
+      <button class="dropdown-item" id="edit-goal-item">
+        <span class="dropdown-icon">✏️</span> Edit
+      </button>
+      <button class="dropdown-item" id="archive-goal-item">
+        <span class="dropdown-icon">📦</span> Archive
+      </button>
+      <button class="dropdown-item dropdown-item-danger" id="delete-goal-item">
+        <span class="dropdown-icon">🗑️</span> Delete
+      </button>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast" style="display: none;">
+      <span class="toast-icon" id="toast-icon">✓</span>
+      <span class="toast-message" id="toast-message">Success!</span>
+    </div>
+  </div>
+
+  <!-- Confirmation Modal -->
+  <div class="confirm-modal" id="confirm-modal">
+    <div class="confirm-modal-overlay" id="confirm-modal-overlay"></div>
+    <div class="confirm-modal-content modal-confirm">
+      <div class="modal-body-confirm">
+        <div class="confirm-icon" id="confirm-icon">⚠️</div>
+        <h2 class="confirm-title" id="confirm-title">Are you sure?</h2>
+        <p class="confirm-message" id="confirm-message">This action cannot be undone.</p>
+        <div class="modal-actions">
+          <button class="btn btn-secondary" id="confirm-cancel">Cancel</button>
+          <button class="btn btn-primary" id="confirm-ok">Confirm</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Session Notes Modal -->
+  <div class="confirm-modal" id="notes-modal">
+    <div class="confirm-modal-overlay" id="notes-modal-overlay"></div>
+    <div class="confirm-modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title">Add Session Notes</h2>
+        <button class="modal-close" id="notes-modal-close">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p class="notes-prompt">Would you like to add any notes about this session?</p>
+        <textarea 
+          class="notes-textarea" 
+          id="session-notes-input" 
+          placeholder="What did you accomplish? Any insights or challenges?"
+          rows="4"
+        ></textarea>
+        <div class="modal-actions">
+          <button class="btn btn-secondary" id="notes-skip">Skip</button>
+          <button class="btn btn-primary" id="notes-save">Save & Finish</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script type="module" src="popup.js"></script>
+</body>
+</html>

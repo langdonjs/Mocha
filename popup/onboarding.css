@@ -1,0 +1,338 @@
+/**
+ * Onboarding Styles for Mocha Study Tracker
+ *
+ * These styles extend the base popup.css for the onboarding flow.
+ * The onboarding is a 3-step wizard that introduces users to the app.
+ */
+
+/* ============================================
+   ONBOARDING CONTAINER
+   ============================================ */
+
+.onboarding {
+  background: linear-gradient(135deg, var(--color-bg) 0%, var(--color-bg-secondary) 100%);
+}
+
+.onboarding-step {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 500px;
+  padding: var(--spacing-lg);
+  animation: fadeIn 0.3s ease;
+}
+
+.onboarding-step.hidden {
+  display: none;
+}
+
+/* ============================================
+   STEP INDICATOR
+   ============================================ */
+
+.step-indicator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-md) var(--spacing-lg);
+  gap: var(--spacing-xs);
+}
+
+.step {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--color-border);
+  color: var(--color-text-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  transition: all var(--transition-normal);
+}
+
+.step.active {
+  background: var(--color-primary);
+  color: white;
+  transform: scale(1.1);
+}
+
+.step.completed {
+  background: var(--color-success);
+  color: white;
+}
+
+.step-line {
+  width: 40px;
+  height: 2px;
+  background: var(--color-border);
+}
+
+/* ============================================
+   STEP CONTENT
+   ============================================ */
+
+.step-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  overflow-y: auto;
+}
+
+.step-title {
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  color: var(--color-text);
+  margin-bottom: var(--spacing-xs);
+}
+
+.step-subtitle {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  margin-bottom: var(--spacing-lg);
+}
+
+.step-footer {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--spacing-md);
+  padding-top: var(--spacing-md);
+}
+
+.step-footer .btn {
+  flex: 1;
+}
+
+/* ============================================
+   STEP 1: WELCOME
+   ============================================ */
+
+.welcome-bear {
+  margin-bottom: var(--spacing-md);
+}
+
+.big-bear-emoji {
+  font-size: 80px;
+  display: block;
+  animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.welcome-title {
+  font-size: var(--font-size-xl);
+  font-weight: 700;
+  color: var(--color-primary);
+  margin-bottom: var(--spacing-xs);
+}
+
+.welcome-subtitle {
+  font-size: var(--font-size-md);
+  color: var(--color-text-secondary);
+  margin-bottom: var(--spacing-md);
+}
+
+.welcome-text {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  max-width: 280px;
+  margin-bottom: var(--spacing-lg);
+}
+
+.features-preview {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-sm);
+  width: 100%;
+  max-width: 280px;
+}
+
+.feature {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-sm);
+  background: var(--color-bg-card);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+}
+
+.feature-icon {
+  font-size: var(--font-size-lg);
+}
+
+.feature-text {
+  font-size: var(--font-size-xs);
+  color: var(--color-text);
+  text-align: left;
+}
+
+/* ============================================
+   STEP 2: CHOOSE YOUR BEAR
+   ============================================ */
+
+.bear-options {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--spacing-sm);
+  width: 100%;
+  max-width: 320px;
+}
+
+.bear-option {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: var(--spacing-sm);
+  background: var(--color-bg-card);
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.bear-option:hover {
+  border-color: var(--color-primary-light);
+  transform: translateY(-2px);
+}
+
+.bear-option.selected {
+  border-color: var(--color-primary);
+  background: rgba(166, 124, 82, 0.1);
+}
+
+.bear-option input {
+  display: none;
+}
+
+.bear-preview {
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: var(--spacing-xs);
+}
+
+.bear-preview .bear-emoji {
+  font-size: 36px;
+}
+
+.bear-name {
+  font-size: var(--font-size-xs);
+  color: var(--color-text);
+  font-weight: 500;
+}
+
+/* 5 bears in a row wrapping */
+.bear-options {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.bear-option:nth-child(4),
+.bear-option:nth-child(5) {
+  /* Center the last row */
+}
+
+/* ============================================
+   STEP 3: NAME YOUR BEAR
+   ============================================ */
+
+.selected-bear-display {
+  margin-bottom: var(--spacing-lg);
+}
+
+.selected-bear-emoji {
+  font-size: 64px;
+  display: block;
+}
+
+.name-input-container {
+  position: relative;
+  width: 100%;
+  max-width: 240px;
+  margin-bottom: var(--spacing-lg);
+}
+
+.name-input {
+  text-align: center;
+  font-size: var(--font-size-lg);
+  padding: var(--spacing-md);
+}
+
+.char-count {
+  position: absolute;
+  right: var(--spacing-sm);
+  bottom: -20px;
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+}
+
+.name-suggestions {
+  width: 100%;
+  max-width: 280px;
+}
+
+.suggestions-label {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+  margin-bottom: var(--spacing-sm);
+}
+
+.suggestion-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-xs);
+  justify-content: center;
+}
+
+.suggestion-chip {
+  padding: var(--spacing-xs) var(--spacing-sm);
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-xs);
+  color: var(--color-text);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.suggestion-chip:hover {
+  background: var(--color-primary);
+  color: white;
+  border-color: var(--color-primary);
+}
+
+/* ============================================
+   LOADING STATE
+   ============================================ */
+
+.loading-content {
+  justify-content: center;
+}
+
+.loading-bear {
+  margin-bottom: var(--spacing-lg);
+}
+
+.loading-emoji {
+  font-size: 64px;
+  display: block;
+  animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.1); opacity: 0.8; }
+}
+
+.loading-text {
+  font-size: var(--font-size-md);
+  color: var(--color-text-secondary);
+}

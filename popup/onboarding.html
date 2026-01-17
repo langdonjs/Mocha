@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Welcome to Mocha!</title>
+  <link rel="stylesheet" href="popup.css">
+  <link rel="stylesheet" href="onboarding.css">
+</head>
+<body>
+  <div class="app onboarding">
+    <!-- Step Indicator -->
+    <div class="step-indicator">
+      <div class="step active" data-step="1">1</div>
+      <div class="step-line"></div>
+      <div class="step" data-step="2">2</div>
+      <div class="step-line"></div>
+      <div class="step" data-step="3">3</div>
+    </div>
+
+    <!-- Step 1: Welcome -->
+    <div class="onboarding-step" id="step-1">
+      <div class="step-content">
+        <div class="welcome-bear">
+          <span class="big-bear-emoji">🐻</span>
+        </div>
+        <h1 class="welcome-title">Welcome to Mocha!</h1>
+        <p class="welcome-subtitle">Your cozy study companion</p>
+        <p class="welcome-text">
+          Track your study time, complete tasks, and earn points to customize your bear friend!
+        </p>
+        <div class="features-preview">
+          <div class="feature">
+            <span class="feature-icon">⏱️</span>
+            <span class="feature-text">Track study time</span>
+          </div>
+          <div class="feature">
+            <span class="feature-icon">✅</span>
+            <span class="feature-text">Complete tasks</span>
+          </div>
+          <div class="feature">
+            <span class="feature-icon">🏆</span>
+            <span class="feature-text">Earn points</span>
+          </div>
+          <div class="feature">
+            <span class="feature-icon">🎨</span>
+            <span class="feature-text">Customize your bear</span>
+          </div>
+        </div>
+      </div>
+      <div class="step-footer">
+        <button class="btn btn-primary btn-large" id="start-btn">
+          Let's Get Started!
+        </button>
+      </div>
+    </div>
+
+    <!-- Step 2: Choose Your Bear -->
+    <div class="onboarding-step hidden" id="step-2">
+      <div class="step-content">
+        <h2 class="step-title">Choose Your Bear</h2>
+        <p class="step-subtitle">Pick a bear species to be your study buddy</p>
+
+        <div class="bear-options" id="bear-options">
+          <label class="bear-option selected" data-species="brown">
+            <input type="radio" name="species" value="brown" checked>
+            <div class="bear-preview">
+              <span class="bear-emoji">🐻</span>
+            </div>
+            <span class="bear-name">Brown Bear</span>
+          </label>
+          <label class="bear-option" data-species="black">
+            <input type="radio" name="species" value="black">
+            <div class="bear-preview" style="filter: brightness(0.7);">
+              <span class="bear-emoji">🐻</span>
+            </div>
+            <span class="bear-name">Black Bear</span>
+          </label>
+          <label class="bear-option" data-species="polar">
+            <input type="radio" name="species" value="polar">
+            <div class="bear-preview">
+              <span class="bear-emoji">🐻‍❄️</span>
+            </div>
+            <span class="bear-name">Polar Bear</span>
+          </label>
+          <label class="bear-option" data-species="panda">
+            <input type="radio" name="species" value="panda">
+            <div class="bear-preview">
+              <span class="bear-emoji">🐼</span>
+            </div>
+            <span class="bear-name">Panda</span>
+          </label>
+          <label class="bear-option" data-species="grizzly">
+            <input type="radio" name="species" value="grizzly">
+            <div class="bear-preview" style="filter: sepia(0.5);">
+              <span class="bear-emoji">🐻</span>
+            </div>
+            <span class="bear-name">Grizzly</span>
+          </label>
+        </div>
+      </div>
+      <div class="step-footer">
+        <button class="btn btn-secondary" id="back-to-1">Back</button>
+        <button class="btn btn-primary" id="to-step-3">Next</button>
+      </div>
+    </div>
+
+    <!-- Step 3: Name Your Bear -->
+    <div class="onboarding-step hidden" id="step-3">
+      <div class="step-content">
+        <h2 class="step-title">Name Your Bear</h2>
+        <p class="step-subtitle">What should we call your study buddy?</p>
+
+        <div class="selected-bear-display" id="selected-bear-display">
+          <span class="selected-bear-emoji">🐻</span>
+        </div>
+
+        <div class="name-input-container">
+          <input
+            type="text"
+            id="bear-name-input"
+            class="form-input name-input"
+            placeholder="Enter a name..."
+            maxlength="20"
+            autofocus
+          >
+          <span class="char-count"><span id="char-count">0</span>/20</span>
+        </div>
+
+        <div class="name-suggestions">
+          <p class="suggestions-label">Need ideas?</p>
+          <div class="suggestion-chips">
+            <button class="suggestion-chip" data-name="Mocha">Mocha</button>
+            <button class="suggestion-chip" data-name="Cocoa">Cocoa</button>
+            <button class="suggestion-chip" data-name="Teddy">Teddy</button>
+            <button class="suggestion-chip" data-name="Honey">Honey</button>
+            <button class="suggestion-chip" data-name="Bruno">Bruno</button>
+            <button class="suggestion-chip" data-name="Maple">Maple</button>
+          </div>
+        </div>
+      </div>
+      <div class="step-footer">
+        <button class="btn btn-secondary" id="back-to-2">Back</button>
+        <button class="btn btn-primary" id="finish-btn" disabled>
+          Start Studying!
+        </button>
+      </div>
+    </div>
+
+    <!-- Loading State -->
+    <div class="onboarding-step hidden" id="loading-step">
+      <div class="step-content loading-content">
+        <div class="loading-bear">
+          <span class="loading-emoji">🐻</span>
+        </div>
+        <p class="loading-text">Setting up your study space...</p>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="onboarding.js"></script>
+</body>
+</html>

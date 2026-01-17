@@ -1,0 +1,32 @@
+{
+  "manifest_version": 3,
+  "name": "Mocha - Study Time Tracker",
+  "version": "1.0.2",
+  "description": "Track study time with your customizable bear companion. Manage classes, coding practice, and personal goals with a cozy lofi aesthetic.",
+  "permissions": [
+    "storage",
+    "alarms",
+    "notifications",
+    "idle"
+  ],
+  "action": {
+    "default_popup": "popup/popup.html",
+    "default_icon": {
+      "16": "assets/icons/icon16.png",
+      "32": "assets/icons/icon32.png",
+      "48": "assets/icons/icon48.png",
+      "128": "assets/icons/icon128.png"
+    },
+    "default_title": "Mocha - Study Tracker"
+  },
+  "icons": {
+    "16": "assets/icons/icon16.png",
+    "32": "assets/icons/icon32.png",
+    "48": "assets/icons/icon48.png",
+    "128": "assets/icons/icon128.png"
+  },
+  "background": {
+    "service_worker": "background/background.js",
+    "type": "module"
+  }
+}

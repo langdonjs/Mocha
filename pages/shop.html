@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shop - Mocha Study Tracker</title>
+  <link rel="stylesheet" href="shared.css">
+  <link rel="stylesheet" href="shop.css">
+</head>
+<body>
+  <div class="page">
+    <!-- Header -->
+    <header class="page-header">
+      <div class="page-header-content">
+        <div class="page-title">
+          <button class="btn btn-ghost btn-small" id="back-to-popup" title="Back to Mocha">
+            ← Back
+          </button>
+          <span class="page-title-icon">🎨</span>
+          <h1>Bear Shop</h1>
+        </div>
+        <div class="page-actions">
+          <div class="points-badge">
+            <span class="points-icon">🏆</span>
+            <span class="points-value" id="user-points">0</span>
+            <span class="points-label">points</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="page-content">
+      <!-- Character Preview -->
+      <section class="character-preview-section">
+        <div class="character-preview-card">
+          <div class="character-display" id="character-display">
+            <span class="character-emoji">🐻</span>
+          </div>
+          <div class="character-info">
+            <h2 class="character-name" id="character-name">Your Bear</h2>
+            <p class="character-equipped" id="character-equipped">No items equipped</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Category Tabs -->
+      <div class="category-tabs" id="category-tabs">
+        <button class="category-tab active" data-category="outfits">
+          <span>👕</span> Outfits
+        </button>
+        <button class="category-tab" data-category="accessories">
+          <span>🎀</span> Accessories
+        </button>
+        <button class="category-tab" data-category="decorations">
+          <span>🪴</span> Decorations
+        </button>
+        <button class="category-tab" data-category="backgrounds">
+          <span>🖼️</span> Backgrounds
+        </button>
+      </div>
+
+      <!-- Shop Grid -->
+      <section class="shop-grid" id="shop-grid">
+        <!-- Items populated by JS -->
+      </section>
+
+      <!-- Empty State -->
+      <div class="empty-state hidden" id="empty-shop-state">
+        <div class="empty-state-icon">🛍️</div>
+        <div class="empty-state-title">No items available</div>
+        <div class="empty-state-text">Check back later for new items!</div>
+      </div>
+    </main>
+
+    <!-- Purchase Modal -->
+    <div class="modal-overlay hidden" id="purchase-modal">
+      <div class="modal purchase-modal">
+        <div class="modal-header">
+          <h3 class="modal-title" id="modal-title">Purchase Item</h3>
+          <button class="modal-close" id="close-modal">&times;</button>
+        </div>
+        <div class="modal-body">
+          <div class="item-preview" id="item-preview">
+            <span class="item-preview-icon">👕</span>
+          </div>
+          <h4 class="item-preview-name" id="item-preview-name">Item Name</h4>
+          <p class="item-preview-description" id="item-preview-description">Item description goes here.</p>
+
+          <div class="purchase-info">
+            <div class="price-display">
+              <span class="price-label">Price:</span>
+              <span class="price-value" id="item-price">50 pts</span>
+            </div>
+            <div class="balance-display">
+              <span class="balance-label">Your balance:</span>
+              <span class="balance-value" id="user-balance">0 pts</span>
+            </div>
+          </div>
+
+          <div class="purchase-message" id="purchase-message"></div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" id="cancel-purchase">Cancel</button>
+          <button class="btn btn-primary" id="confirm-purchase">
+            <span>🛒</span> Purchase
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Equip Modal -->
+    <div class="modal-overlay hidden" id="equip-modal">
+      <div class="modal equip-modal">
+        <div class="modal-header">
+          <h3 class="modal-title">Equip Item</h3>
+          <button class="modal-close" id="close-equip-modal">&times;</button>
+        </div>
+        <div class="modal-body">
+          <div class="item-preview" id="equip-item-preview">
+            <span class="item-preview-icon">👕</span>
+          </div>
+          <h4 class="item-preview-name" id="equip-item-name">Item Name</h4>
+          <p class="item-preview-description" id="equip-item-description">This item is in your inventory.</p>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" id="cancel-equip">Cancel</button>
+          <button class="btn btn-primary" id="confirm-equip">
+            <span>✨</span> Equip
+          </button>
+          <button class="btn btn-secondary hidden" id="unequip-btn">
+            Unequip
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="shop.js"></script>
+</body>
+</html>

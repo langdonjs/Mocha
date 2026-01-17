@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Progress - Mocha Study Tracker</title>
+  <link rel="stylesheet" href="shared.css">
+  <link rel="stylesheet" href="progress.css">
+</head>
+<body>
+  <div class="page">
+    <!-- Header -->
+    <header class="page-header page-header-compact">
+      <div class="page-header-content">
+        <div class="page-title">
+          <button class="btn btn-ghost btn-small" id="back-to-popup" title="Back to Mocha">
+            ← Back
+          </button>
+          <span class="page-title-icon">📊</span>
+          <h1>Weekly Progress</h1>
+        </div>
+        <div class="page-actions">
+          <button class="btn btn-small btn-secondary" id="add-goal-btn">
+            <span>+</span> New Goal
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="page-content">
+      <!-- Goals Management Section -->
+      <section class="card mb-xl">
+        <div class="card-header">
+          <h2 class="card-title">
+            <span class="card-title-icon">🎯</span>
+            Manage Goals & Tasks
+          </h2>
+        </div>
+        <div class="goals-management-container">
+          <!-- Goals List -->
+          <div class="goals-list" id="goals-management-list">
+            <!-- Will be populated by JS -->
+          </div>
+          
+          <!-- Add New Goal Button -->
+          <button class="btn btn-primary btn-block" id="add-new-goal-btn">
+            <span>+</span> Create New Goal
+          </button>
+        </div>
+      </section>
+
+      <!-- Week Navigation -->
+      <div class="week-nav" id="week-nav">
+        <button class="btn btn-icon btn-secondary" id="prev-week">←</button>
+        <span class="week-label" id="week-label">This Week</span>
+        <button class="btn btn-icon btn-secondary" id="next-week" disabled>→</button>
+      </div>
+
+      <!-- Stats Overview -->
+      <section class="stats-grid" id="stats-grid">
+        <div class="stat-card">
+          <div class="stat-icon">⏱️</div>
+          <div class="stat-value" id="total-hours">0h</div>
+          <div class="stat-label">Total Study Time</div>
+          <div class="stat-sublabel" id="hours-goal-progress">-- of -- hours goal</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">✅</div>
+          <div class="stat-value" id="total-tasks">0</div>
+          <div class="stat-label">Tasks Completed</div>
+          <div class="stat-sublabel" id="tasks-goal-progress">-- of -- tasks goal</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">🔥</div>
+          <div class="stat-value" id="current-streak">0</div>
+          <div class="stat-label">Day Streak</div>
+          <div class="stat-sublabel" id="streak-status">Start studying today!</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">🏆</div>
+          <div class="stat-value" id="points-earned">0</div>
+          <div class="stat-label">Points This Week</div>
+          <div class="stat-sublabel" id="total-points">-- total points</div>
+        </div>
+      </section>
+
+      <!-- Goals Progress -->
+      <section class="card mb-xl">
+        <div class="card-header">
+          <h2 class="card-title">
+            <span class="card-title-icon">🎯</span>
+            Goals Progress
+          </h2>
+        </div>
+        <div class="goals-progress-list" id="goals-progress-list">
+          <!-- Goals will be populated by JS -->
+          <div class="empty-state" id="no-goals-state">
+            <div class="empty-state-icon">📚</div>
+            <div class="empty-state-title">No goals yet</div>
+            <div class="empty-state-text">Create goals in the Mocha popup to start tracking your progress!</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Two Column Layout -->
+      <div class="grid grid-2">
+        <!-- Session History -->
+        <section class="card">
+          <div class="card-header">
+            <h2 class="card-title">
+              <span class="card-title-icon">📝</span>
+              Recent Sessions
+            </h2>
+          </div>
+          <ul class="list" id="sessions-list">
+            <div class="empty-state" id="no-sessions-state">
+              <div class="empty-state-icon">⏱️</div>
+              <div class="empty-state-title">No sessions this week</div>
+              <div class="empty-state-text">Start a study session to see your history here.</div>
+            </div>
+          </ul>
+        </section>
+
+        <!-- Daily Breakdown -->
+        <section class="card">
+          <div class="card-header">
+            <h2 class="card-title">
+              <span class="card-title-icon">📅</span>
+              Daily Breakdown
+            </h2>
+          </div>
+          <div class="daily-breakdown" id="daily-breakdown">
+            <!-- Days will be populated by JS -->
+          </div>
+        </section>
+      </div>
+
+      <!-- Manual Entry Section -->
+      <section class="card mt-xl" id="manual-entry-section">
+        <div class="card-header">
+          <h2 class="card-title">
+            <span class="card-title-icon">➕</span>
+            Add Manual Entry
+          </h2>
+          <button class="btn btn-secondary" id="toggle-manual-form">
+            <span id="toggle-icon">+</span>
+          </button>
+        </div>
+        <div class="manual-entry-form hidden" id="manual-entry-form">
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Goal</label>
+              <select class="form-select" id="manual-goal">
+                <!-- Populated by JS -->
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Duration</label>
+              <div class="duration-inputs">
+                <input type="number" class="form-input" id="manual-hours" min="0" max="24" value="0" placeholder="0">
+                <span>h</span>
+                <input type="number" class="form-input" id="manual-minutes" min="0" max="59" value="30" placeholder="30">
+                <span>m</span>
+                <input type="number" class="form-input" id="manual-seconds" min="0" max="59" value="0" placeholder="0">
+                <span>s</span>
+              </div>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Date</label>
+              <input type="date" class="form-input" id="manual-date">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Notes (optional)</label>
+              <input type="text" class="form-input" id="manual-notes" placeholder="What did you work on?">
+            </div>
+          </div>
+          <div class="form-actions">
+            <button class="btn btn-primary" id="save-manual-entry">
+              Save Entry
+            </button>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Goal Modal -->
+  <div class="modal" id="goal-modal">
+    <div class="modal-overlay" id="goal-modal-overlay"></div>
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="goal-modal-title">Create New Goal</h2>
+        <button class="modal-close" id="goal-modal-close">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="goal-form">
+          <div class="form-group">
+            <label class="form-label">Goal Name *</label>
+            <input type="text" class="form-input" id="goal-name" placeholder="e.g., Math 54" required>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Icon (Emoji) *</label>
+              <input type="text" class="form-input" id="goal-icon" placeholder="📚" maxlength="2" required>
+              <div class="emoji-suggestions">
+                <button type="button" class="emoji-btn" data-emoji="📚">📚</button>
+                <button type="button" class="emoji-btn" data-emoji="💻">💻</button>
+                <button type="button" class="emoji-btn" data-emoji="🧮">🧮</button>
+                <button type="button" class="emoji-btn" data-emoji="🔬">🔬</button>
+                <button type="button" class="emoji-btn" data-emoji="🎨">🎨</button>
+                <button type="button" class="emoji-btn" data-emoji="🎵">🎵</button>
+                <button type="button" class="emoji-btn" data-emoji="⚽">⚽</button>
+                <button type="button" class="emoji-btn" data-emoji="✏️">✏️</button>
+                <button type="button" class="emoji-btn" data-emoji="📝">📝</button>
+                <button type="button" class="emoji-btn" data-emoji="🌟">🌟</button>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Color *</label>
+              <input type="color" class="form-input" id="goal-color" value="#A67C52" required>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Weekly Hour Goal *</label>
+              <input type="number" class="form-input" id="goal-hours" min="0" max="168" step="0.5" value="10" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Weekly Task Goal *</label>
+              <input type="number" class="form-input" id="goal-tasks" min="0" max="100" value="5" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Task Unit</label>
+            <input type="text" class="form-input" id="goal-task-unit" placeholder="e.g., problems, pages, chapters" value="tasks">
+          </div>
+
+          <div class="form-actions">
+            <button type="button" class="btn btn-secondary" id="goal-modal-cancel">Cancel</button>
+            <button type="submit" class="btn btn-primary" id="goal-modal-save">Save Goal</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Task Modal -->
+  <div class="modal" id="task-modal">
+    <div class="modal-overlay" id="task-modal-overlay"></div>
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title">Add New Task</h2>
+        <button class="modal-close" id="task-modal-close">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="task-form">
+          <div class="form-group">
+            <label class="form-label">Task Name *</label>
+            <input type="text" class="form-input" id="task-name" placeholder="e.g., Complete homework 3" required>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Difficulty</label>
+            <select class="form-select" id="task-difficulty">
+              <option value="easy">Easy</option>
+              <option value="medium" selected>Medium</option>
+              <option value="hard">Hard</option>
+            </select>
+          </div>
+
+          <div class="form-actions">
+            <button type="button" class="btn btn-secondary" id="task-modal-cancel">Cancel</button>
+            <button type="submit" class="btn btn-primary" id="task-modal-save">Add Task</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Confirmation Modal -->
+  <div class="modal" id="confirm-modal">
+    <div class="modal-overlay" id="confirm-modal-overlay"></div>
+    <div class="modal-content modal-confirm">
+      <div class="modal-body">
+        <div class="confirm-icon">⚠️</div>
+        <h2 class="confirm-title" id="confirm-title">Are you sure?</h2>
+        <p class="confirm-message" id="confirm-message">This action cannot be undone.</p>
+        <div class="form-actions">
+          <button class="btn btn-secondary" id="confirm-cancel">Cancel</button>
+          <button class="btn btn-danger" id="confirm-ok">Confirm</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="progress.js"></script>
+</body>
+</html>

@@ -1,0 +1,20 @@
+# Environment variables
+.env
+
+# macOS
+.DS_Store
+
+# IDE
+.vscode/
+.idea/
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+.cache/
+
+# Node modules (if you add any in the future)
+node_modules/
+

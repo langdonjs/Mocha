@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calendar - Mocha Study Tracker</title>
+  <link rel="stylesheet" href="shared.css">
+  <link rel="stylesheet" href="calendar.css">
+</head>
+<body>
+  <div class="page">
+    <!-- Header -->
+    <header class="page-header">
+      <div class="page-header-content">
+        <div class="page-title">
+          <span class="page-title-icon">📅</span>
+          <h1>Study Calendar</h1>
+        </div>
+        <div class="page-actions">
+          <a href="../popup/popup.html" class="back-link">
+            <span>←</span> Back to Mocha
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="page-content">
+      <div class="calendar-layout">
+        <!-- Calendar View -->
+        <section class="calendar-section">
+          <!-- Month Navigation -->
+          <div class="month-nav">
+            <button class="btn btn-icon btn-secondary" id="prev-month">←</button>
+            <h2 class="month-label" id="month-label">January 2025</h2>
+            <button class="btn btn-icon btn-secondary" id="next-month">→</button>
+          </div>
+
+          <!-- Calendar Grid -->
+          <div class="calendar-grid">
+            <!-- Day headers -->
+            <div class="calendar-header">
+              <span>Mon</span>
+              <span>Tue</span>
+              <span>Wed</span>
+              <span>Thu</span>
+              <span>Fri</span>
+              <span>Sat</span>
+              <span>Sun</span>
+            </div>
+
+            <!-- Days grid -->
+            <div class="calendar-days" id="calendar-days">
+              <!-- Days populated by JS -->
+            </div>
+          </div>
+
+          <!-- Legend -->
+          <div class="calendar-legend">
+            <div class="legend-item">
+              <span class="legend-color streak-day"></span>
+              <span>Study day</span>
+            </div>
+            <div class="legend-item">
+              <span class="legend-color today-marker"></span>
+              <span>Today</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- Day Details Sidebar -->
+        <aside class="day-details-sidebar" id="day-details-sidebar">
+          <div class="day-details-header">
+            <h3 class="day-details-title" id="selected-day-title">Select a day</h3>
+            <p class="day-details-subtitle" id="selected-day-subtitle">Click on a calendar day to see details</p>
+          </div>
+
+          <div class="day-details-content" id="day-details-content">
+            <!-- Stats for selected day -->
+            <div class="day-stats" id="day-stats" style="display: none;">
+              <div class="day-stat">
+                <span class="day-stat-icon">⏱️</span>
+                <span class="day-stat-value" id="day-hours">0h</span>
+                <span class="day-stat-label">studied</span>
+              </div>
+              <div class="day-stat">
+                <span class="day-stat-icon">📝</span>
+                <span class="day-stat-value" id="day-sessions">0</span>
+                <span class="day-stat-label">sessions</span>
+              </div>
+              <div class="day-stat">
+                <span class="day-stat-icon">🏆</span>
+                <span class="day-stat-value" id="day-points">0</span>
+                <span class="day-stat-label">points</span>
+              </div>
+            </div>
+
+            <!-- Sessions for selected day -->
+            <div class="day-sessions-list" id="day-sessions-list">
+              <div class="empty-state" id="no-sessions-day">
+                <div class="empty-state-icon">📚</div>
+                <div class="empty-state-text">No sessions on this day</div>
+              </div>
+            </div>
+          </div>
+        </aside>
+      </div>
+
+      <!-- Streak Overview -->
+      <section class="streak-section">
+        <div class="card">
+          <div class="card-header">
+            <h2 class="card-title">
+              <span class="card-title-icon">🔥</span>
+              Streak Overview
+            </h2>
+          </div>
+          <div class="streak-stats">
+            <div class="streak-stat">
+              <span class="streak-stat-value" id="current-streak">0</span>
+              <span class="streak-stat-label">Current Streak</span>
+            </div>
+            <div class="streak-stat">
+              <span class="streak-stat-value" id="longest-streak">0</span>
+              <span class="streak-stat-label">Longest Streak</span>
+            </div>
+            <div class="streak-stat">
+              <span class="streak-stat-value" id="total-study-days">0</span>
+              <span class="streak-stat-label">Total Study Days</span>
+            </div>
+            <div class="streak-stat">
+              <span class="streak-stat-value" id="this-month-days">0</span>
+              <span class="streak-stat-label">This Month</span>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script type="module" src="calendar.js"></script>
+</body>
+</html>
